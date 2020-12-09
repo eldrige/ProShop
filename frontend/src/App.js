@@ -1,8 +1,18 @@
 import React from "react";
-import "./App.css";
+import { Container} from 'react-bootstrap'
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
-function App() {
-  return <div>Hello world</div>;
-}
+const App = () => {
+  return (
+    <>
+      <Header />
+      <Container>
+        <main>Hello world</main>
+      </Container>
+      <Footer />
+    </>
+  );
+};
 
 export default App;

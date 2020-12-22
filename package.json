@@ -1,0 +1,32 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "A MERN E-Commerce platform",
+  "main": "server.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start" : "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eldrige/ProShop.git"
+  },
+  "keywords": [],
+  "author": "peldrige8",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eldrige/ProShop/issues"
+  },
+  "homepage": "https://github.com/eldrige/ProShop#readme"
+}

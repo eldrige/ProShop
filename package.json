@@ -1,6 +1,7 @@
 {
   "name": "proshop",
   "version": "1.0.0",
+  "type": "module",
   "description": "A MERN E-Commerce platform",
   "main": "server.js",
   "dependencies": {

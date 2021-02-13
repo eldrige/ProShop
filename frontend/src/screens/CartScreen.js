@@ -11,7 +11,7 @@ import {
   Card,
   Image,
 } from 'react-bootstrap';
-import { addToCart } from '../actions/cartActions';
+import { addToCart,removeFromCart } from '../actions/cartActions';
 
 // !location is used to get query strings
 const CartScreen = ({ match, location, history }) => {
@@ -32,7 +32,7 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (id) => {
-    console.log('removed');
+    dispatch(removeFromCart(id))
   };
 
   const checkoutHandler = () => {

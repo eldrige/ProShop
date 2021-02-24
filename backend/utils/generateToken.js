@@ -6,4 +6,6 @@ const generateToken = (id) => {
   })
 }
 
+// if we head to jwt.io, we realize that we have a 'iat' meaning issuedAt
+
 export default generateToken

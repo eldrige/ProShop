@@ -37,6 +37,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      
     });
   } else {
     res.status(404);
@@ -44,4 +45,41 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, getUserProfile };
+// @desc Register a new user
+// @route POST /api/users/
+// @access Public
+
+const registerUser = asyncHandler(async (req, res) => {
+  // res.send("Success")
+  const { email, name, password } = req.body;
+
+  const userExist = await User.findOne({ email });
+  if (userExist) {
+    // 400 means bad request
+    res.status(400);
+    throw new Error('User already exist');
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+
+  if (user) {
+    // 201 means a new resource was created
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400)
+    throw new Error("Invalid user data")
+  }
+
+});
+
+export { authUser, getUserProfile, registerUser };

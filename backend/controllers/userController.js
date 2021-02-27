@@ -59,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('User already exist');
   }
-
+// create is syntactic sugar, it basiclly acts like a save
   const user = await User.create({
     name,
     email,

@@ -1,16 +1,14 @@
-
 import {
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
   USER_REGISTER_SUCCESS,
+  USER_REGISTER_REQUEST,
   USER_REGISTER_FAILURE,
-  USER_LOGIN_REQUEST
-} from '../constants/userConstants'
+} from '../constants/userConstants';
 
 export const userLoginReducer = (state = {}, action) => {
-
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -25,8 +23,6 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-
-
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -39,5 +35,3 @@ export const userRegisterReducer = (state = {}, action) => {
       return state;
   }
 };
-
-

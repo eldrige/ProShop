@@ -28,8 +28,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route POST /api/users/profile
 // @access Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  // res.send("Success")
-  const user = await User.findById(req.body._id);
+  const user = await User.findById(req.user._id);
 
   if (user) {
     res.json({
@@ -37,6 +36,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      // token: generateToken(user._id),
     });
   } else {
     res.status(404);
@@ -72,6 +72,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      // we send back the token as well, so as to authenticate after immediately
       token: generateToken(user._id),
     });
   } else {

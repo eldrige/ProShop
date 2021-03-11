@@ -86,6 +86,7 @@ export const register = (name, email, password) => async (dispatch) => {
 };
 
 export const getUserDetails = (id) => async (dispatch, getState) => {
+  //? we can get our user token, from user info which is found in the getState
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
@@ -102,11 +103,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `/api/users/${id}`,
-      // {name,email,password},
-      config
-    );
+    const { data } = await axios.get(`/api/users/${id}`, config);
 
     dispatch({
       type: USER_DETAILS_SUCCESS,

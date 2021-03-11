@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message.js';
 import Loader from '../components/Loader.js';
-import { getUserDetails } from '../actions/userActions.js';
+import { getUserDetails, updateUserProfile } from '../actions/userActions.js';
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = React.useState('');
@@ -43,7 +43,6 @@ const ProfileScreen = ({ history }) => {
     if (password !== confirmPassword) {
       setMessage('Password do not match');
     } else {
-      // dispatch update profile
     }
   };
   return (

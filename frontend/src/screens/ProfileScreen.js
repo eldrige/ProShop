@@ -15,23 +15,24 @@ const ProfileScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  // const userDetails = useSelector((state) => state.userDetails);
+  // const { loading, error, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  console.log(userInfo);
   React.useEffect(() => {
     // since we dnt want loggedin users to see the signin screen
     if (!userInfo) {
       // redirect to sigin page
       history.push('/login');
     } else {
-      if (!user.name) {
+      if (!userInfo.name) {
         dispatch(getUserDetails('profile'));
       } else {
-        setName(user.name);
-        setEmail(user.email);
+        setName(userInfo.name);
+        setEmail(userInfo.email);
       }
     }
     return () => {};
@@ -49,9 +50,9 @@ const ProfileScreen = ({ history }) => {
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
-        {error && <Message variant="danger">{error}</Message>}
+        {/* {error && <Message variant="danger">{error}</Message>} */}
         {message && <Message variant="danger">{message}</Message>}
-        {loading && <Loader />}
+        {/* {loading && <Loader />} */}
         <Form onSubmit={submitHandler}>
           <Form.Group controlid="email">
             <Form.Label>Name</Form.Label>

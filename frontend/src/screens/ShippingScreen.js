@@ -27,7 +27,7 @@ const ShippingScreen = ({ history }) => {
         country,
       })
     );
-    history.push('/payment');
+    history.push('/payments');
   };
 
   return (

@@ -42,7 +42,7 @@ const middleware = [thunk];
 const initialState = {
   cart: {
     cartItems: cartItemsFromStorage,
-    shippingAddress: { shippingAddress: shippingAddresFromStorage },
+    shippingAddress: shippingAddresFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
 };

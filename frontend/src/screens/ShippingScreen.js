@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from '../components/FormContainer.js';
 import { saveShippingAddress } from '../actions/cartActions';
 
-const ShippingScreen = () => {
+const ShippingScreen = ({ history }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const {
-    shippingAddress: { shippingAddress },
-  } = cart;
+  const { shippingAddress } = cart;
 
   console.log(shippingAddress);
 

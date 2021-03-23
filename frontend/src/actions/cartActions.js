@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from '../constants/cartConstants';
 
 // getstate allows us to get evrytx found in our state, as defined in our store
 
@@ -14,18 +18,25 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       image: data.image,
       price: data.price,
       countInStock: data.countInStock,
-      qty
+      qty,
     },
   });
 
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
 
-
-export const removeFromCart = (id) => (dispatch,getState) => {
+export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
-    payload: id
-  })
-  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-}
+    payload: id,
+  });
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+};
+
+export const saveShippingAddress = (data) => (dispatch) => {
+  dispatch({
+    type: CART_SAVE_SHIPPING_ADDRESS,
+    payload: data,
+  });
+  localStorage.setItem('shippingAddress', JSON.stringify(data));
+};

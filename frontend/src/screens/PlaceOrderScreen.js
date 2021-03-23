@@ -6,7 +6,25 @@ import CheckOutSteps from '../components/CheckOutSteps';
 import { Link } from 'react-router-dom';
 
 const PlaceOrderScreen = () => {
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
+
   const cart = useSelector((state) => state.cart);
+  // calculate prices
+  cart.itemsPrice = addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  );
+
+  cart.shippingPrice = addDecimals(cart.ItemsPrice > 100 ? 0 : 100);
+  cart.taxPrice = addDecimals(Number(0.15 * cart.itemsPrice).toFixed(2));
+  cart.totalPrice =
+    Number(cart.itemsPrice) +
+    Number(cart.shippingPrice) +
+    Number(cart.taxPrice);
+  const placeOrderHandler = () => {
+    console.log('order placed');
+  };
 
   return (
     <>
@@ -45,7 +63,7 @@ const PlaceOrderScreen = () => {
                             src={item.image}
                             alt={item.name}
                             fluid
-                            rounder
+                            rounded
                           />
                         </Col>
                         <Col>
@@ -53,7 +71,9 @@ const PlaceOrderScreen = () => {
                             {item.name}
                           </Link>
                         </Col>
-                        <Col md={4}>{item.qty}</Col>
+                        <Col md={4}>
+                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                        </Col>
                       </Row>
                     </ListGroup.Item>
                   ))}
@@ -61,6 +81,49 @@ const PlaceOrderScreen = () => {
               )}
             </ListGroup.Item>
           </ListGroup>
+        </Col>
+        <Col md={4}>
+          <Card>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <h2>Order Summary</h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Item Price</Col>
+                  <Col>${cart.itemsPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Shipping Price</Col>
+                  <Col>${cart.shippingPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Tax Price</Col>
+                  <Col>${cart.taxPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Total</Col>
+                  <Col>${cart.totalPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  type="button"
+                  className="btn-block"
+                  disabled={cart.cartItems === 0}
+                  onClick={placeOrderHandler}
+                >
+                  Place Order
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
         </Col>
       </Row>
     </>

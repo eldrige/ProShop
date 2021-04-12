@@ -32,6 +32,10 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
+// const userDetailsFromStorage = localStorage.getItem('userDetails')
+//   ? JSON.parse(localStorage.getItem('userDetails'))
+//   : null;
+
 const shippingAddresFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
   : {};
@@ -45,6 +49,7 @@ const initialState = {
     shippingAddress: shippingAddresFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
+  // userDetails: userDetailsFromStorage,
 };
 
 const store = createStore(

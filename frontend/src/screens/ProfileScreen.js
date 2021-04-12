@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message.js';
 import Loader from '../components/Loader.js';
 import { getUserDetails, updateUserProfile } from '../actions/userActions.js';
+import { userRegisterReducer } from '../reducers/userReducers.js';
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = React.useState('');
@@ -15,8 +16,8 @@ const ProfileScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  // const userDetails = useSelector((state) => state.userDetails);
-  // const { loading, error, user } = userDetails;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, error, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -39,12 +40,12 @@ const ProfileScreen = ({ history }) => {
       }
     }
     return () => {};
-  }, [dispatch, history, userInfo, dispatch]);
+  }, [dispatch, history, userInfo, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setMessage('Password do not match');
+      setMessage('Passwords do not match');
     } else {
       dispatch(updateUserProfile({ id: userInfo._id, name, email, password }));
     }
@@ -83,6 +84,15 @@ const ProfileScreen = ({ history }) => {
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
+          <Form.Group controlid="password">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Button type="submit" variant="primary">

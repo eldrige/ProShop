@@ -22,6 +22,7 @@ const protect = asyncHandler(async (req, res, next) => {
       // console.log(decoded);
       // select defines which ppty to exclude or include
       req.user = await User.findById(decoded.id).select('-password');
+      next();
     } catch (err) {
       console.error(err);
       res.status(401);

@@ -31,7 +31,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
-      history.pushState(`/order/${order._id}`);
+      history.push(`/order/${order._id}`);
     }
     // eslint-disable-next-line
   }, [history, success]);
@@ -137,9 +137,9 @@ const PlaceOrderScreen = ({ history }) => {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                <ListGroup.Item>
-                  {error && <Message variant="danger">{error}</Message>}
-                </ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
+              </ListGroup.Item>
+              <ListGroup.Item>
                 <Button
                   type="button"
                   className="btn-block"

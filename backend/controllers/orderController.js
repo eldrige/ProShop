@@ -17,6 +17,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
   if (orderItems && orderItems.length === 0) {
     //   400 means bad request
+    // this  means that if there is nothing in the cart, return "No order items"
     res.status(400);
     throw new Error('No order items');
   } else {
@@ -32,7 +33,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     });
 
     const createdOrder = await order.save();
-    res.status(201).json(createdOrder);
+    return res.status(201).json(createdOrder);
   }
 });
 

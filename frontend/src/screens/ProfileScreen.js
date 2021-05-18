@@ -118,7 +118,7 @@ const ProfileScreen = ({ history }) => {
                 <th>ID</th>
                 <th>DATE</th>
                 <th>TOTAL</th>
-                <th>PAID</th>
+                <th>PAID ON</th>
                 <th>DELIVERED</th>
                 <th></th>
               </tr>
@@ -137,7 +137,6 @@ const ProfileScreen = ({ history }) => {
                     )}
                     )
                   </td>
-
                   <td>
                     {order.Delivered ? (
                       order.deliveredAt.substring(0, 10)

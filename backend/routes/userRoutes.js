@@ -8,10 +8,10 @@ import {
   updateUserProfile,
   getUsers,
 } from '../controllers/userController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, protectAdmin } from '../middleware/authMiddleware.js';
 
 router.post('/login', authUser);
-router.route('/').post(registerUser).get(protect, getUsers);
+router.route('/').post(registerUser).get(protect, protectAdmin, getUsers);
 // router.route('/profile').get(getUserProfile)
 router
   .route('/profile')

@@ -8,6 +8,9 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_FAILURE,
   ORDER_PAY_SUCCESS,
+  ORDER_LIST_MY_REQUEST,
+  ORDER_LIST_MY_SUCCESS,
+  ORDER_LIST_MY_FAILURE,
 } from '../constants/orderConstants';
 import axios from 'axios';
 
@@ -119,3 +122,38 @@ export const payOrder =
       });
     }
   };
+
+export const listMyOrders = () => async (dispatch, getState) => {
+  //? we can get our user token, from user info which is found in the getState
+  try {
+    dispatch({
+      type: ORDER_LIST_MY_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/orders/myorders`, config);
+
+    dispatch({
+      type: ORDER_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_MY_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

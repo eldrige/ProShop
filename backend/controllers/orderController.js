@@ -80,6 +80,17 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-export { addOrderItems, getOrderById, updateOrderToPaid };
+// @desc Get loggedIn user orders
+// @route GET /api/orders/myorders
+// @access private
+const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({
+    user: req.user_id,
+  });
+
+  res.json(orders);
+});
+
+export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders };
 
 // ! controllers just encapsulate the logic

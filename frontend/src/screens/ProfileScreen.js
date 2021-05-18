@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button, Row, Col, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Message.js';
 import { getUserDetails, updateUserProfile } from '../actions/userActions.js';
 import { listMyOrders } from '../actions/orderActions';
+import Loader from '../components/Loader';
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = React.useState('');
@@ -26,13 +28,15 @@ const ProfileScreen = ({ history }) => {
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
-  React.useEffect(() => {
+  console.table(orders, 'These are my orders');
+
+  useEffect(() => {
     // since we dnt want loggedin users to see the signin screen
     if (!userInfo) {
       // redirect to sigin page
       history.push('/login');
     } else {
-      if (!userInfo.name) {
+      if (!user.name) {
         dispatch(getUserDetails('profile'));
         dispatch(listMyOrders());
       } else {
@@ -133,13 +137,20 @@ const ProfileScreen = ({ history }) => {
                     )}
                     )
                   </td>
+
                   <td>
                     {order.Delivered ? (
                       order.deliveredAt.substring(0, 10)
                     ) : (
                       <i className="fas fa-times" style={{ color: 'red' }}></i>
                     )}
-                    )
+                  </td>
+                  <td>
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button className="btn-sm" variant="light">
+                        Details
+                      </Button>
+                    </LinkContainer>
                   </td>
                 </tr>
               ))}

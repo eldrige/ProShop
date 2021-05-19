@@ -7,12 +7,13 @@ import {
   registerUser,
   updateUserProfile,
   getUsers,
+  deleteUser,
 } from '../controllers/userController.js';
 import { protect, protectAdmin } from '../middleware/authMiddleware.js';
 
 router.post('/login', authUser);
 router.route('/').post(registerUser).get(protect, protectAdmin, getUsers);
-// router.route('/profile').get(getUserProfile)
+router.route('/:id').delete(protect, protectAdmin, deleteUser);
 router
   .route('/profile')
   // the protect is the middleware that protects the respective route

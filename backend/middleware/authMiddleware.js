@@ -36,7 +36,7 @@ const protect = asyncHandler(async (req, res, next) => {
   // next();
 });
 
-const protectAdmin = (req, res, next) => {
+const admin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
   } else {
@@ -45,4 +45,4 @@ const protectAdmin = (req, res, next) => {
   }
 };
 
-export { protect, protectAdmin };
+export { protect, admin };

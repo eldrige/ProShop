@@ -9,11 +9,11 @@ import {
   getUsers,
   deleteUser,
 } from '../controllers/userController.js';
-import { protect, protectAdmin } from '../middleware/authMiddleware.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 router.post('/login', authUser);
-router.route('/').post(registerUser).get(protect, protectAdmin, getUsers);
-router.route('/:id').delete(protect, protectAdmin, deleteUser);
+router.route('/').post(registerUser).get(protect, admin, getUsers);
+router.route('/:id').delete(protect, admin, deleteUser);
 router
   .route('/profile')
   // the protect is the middleware that protects the respective route

@@ -4,7 +4,7 @@ import { Button, Table, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message.js';
 import Loader from '../components/Loader.js';
-import { listProducts } from '../actions/productActions';
+import { listProducts, deleteProduct } from '../actions/productActions';
 
 const ProductListScreen = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -16,9 +16,16 @@ const ProductListScreen = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
+
   const deleteHandler = (id) => {
-    if (window.confirm('sure about this ?')) {
-      // delete Products
+    if (window.confirm('Sure About this ?')) {
+      dispatch(deleteProduct(id));
     }
   };
 
@@ -33,7 +40,7 @@ const ProductListScreen = ({ match, history }) => {
     } else {
       history.push('/login');
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, successDelete]);
 
   return (
     <>
@@ -47,6 +54,8 @@ const ProductListScreen = ({ match, history }) => {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (

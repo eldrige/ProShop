@@ -20,9 +20,9 @@ const UserListScreen = ({ history }) => {
   const { success: successDelete } = userDelete;
 
   const deleteHandler = (id) => {
-    // if (window.confirm('sure about this ?')) {
-    dispatch(deleteUser(id));
-    // }
+    if (window.confirm('sure about this ?')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   useEffect(() => {

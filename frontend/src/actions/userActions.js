@@ -21,6 +21,10 @@ import {
   USER_DELETE_FAILURE,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
+  USER_UPDATE_RESET,
+  USER_UPDATE_FAILURE,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_REQUEST,
 } from '../constants/userConstants';
 
 import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
@@ -238,6 +242,42 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   }
 };
 
+export const updateUser = (user) => async (dispatch, getState) => {
+  //? we can get our user token, from user info which is found in the getState
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+    });
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: USER_UPDATE_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
@@ -245,4 +285,5 @@ export const logout = () => (dispatch) => {
   dispatch({ type: ORDER_LIST_MY_RESET });
   dispatch({ type: USER_LIST_RESET });
   dispatch({ type: USER_UPDATE_PROFILE_RESET });
+  dispatch({ type: USER_UPDATE_RESET });
 };

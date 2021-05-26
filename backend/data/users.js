@@ -12,18 +12,17 @@ const users = [
     name: 'John Doe',
     email: 'johndoe@example.com',
     password: bcrypt.hashSync('123456', 10),
-    isAdmin: true,
+    isAdmin: false,
   },
   {
     name: 'Jane Doe',
     email: 'janedoe@example.com',
     password: bcrypt.hashSync('123456', 10),
-    isAdmin: true,
+    isAdmin: false,
   },
 ];
 
 // hashing passwords is supposed to be async, but since we r nt
 // dealing with forms yet, we use the hashsync method
 
-
-export default users
+export default users;

@@ -17,7 +17,7 @@ const ProfileScreen = ({ history }) => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const { loading: loadingDetails, error: errorDetails, user } = userDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -36,7 +36,7 @@ const ProfileScreen = ({ history }) => {
       // redirect to sigin page
       history.push('/login');
     } else {
-      if (!user.name) {
+      if (!userInfo.name) {
         dispatch(getUserDetails('profile'));
         dispatch(listMyOrders());
       } else {
@@ -59,7 +59,7 @@ const ProfileScreen = ({ history }) => {
     <Row>
       <Col md={3}>
         <h2>User Profile</h2>
-        {/* {error && <Message variant="danger">{error}</Message>} */}
+        {errorDetails && <Message variant="danger">{errorDetails}</Message>}
         {message && <Message variant="danger">{message}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
         {/* {loading && <Loader />} */}

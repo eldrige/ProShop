@@ -39,6 +39,7 @@ const App = () => {
           <Route path="/admin/orderlist" component={OrderListScreen} />
           <Route path="/admin/users/:id/edit" component={UserEditScreen} />
           <Route path="/admin/users/:id/edit" component={UserEditScreen} />
+          <Route path="/search/:keyword" component={HomeScreen} />
           <Route
             path="/admin/products/:id/edit"
             component={ProductEditScreen}
@@ -46,7 +47,7 @@ const App = () => {
           <Route path="/order/:id" component={OrderScreen} />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
-          <Route path="/" component={HomeScreen} exact />
+          <Route path="/" component={HomeScreen} />
           {/* the ? makes it optional */}
         </Container>
       </main>

@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/uploads', uploadRoutes);
+app.use('/api/upload', uploadRoutes);
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
@@ -33,6 +33,7 @@ app.get('/api/config/paypal', (req, res) =>
 
 // in es6 __dirname isnt availble, thats why we mimic it using path
 const __dirname = path.resolve();
+// we are exposing the uploads folder (backend) to the frontend
 app.use('/uploads', express.static(path.join(__dirname)));
 
 const PORT = process.env.PORT || 5000;

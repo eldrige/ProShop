@@ -83,7 +83,7 @@ const ProductEditScreen = ({ match, history }) => {
         },
       };
 
-      const { data } = await axios.post('/api/uploads', formData, config);
+      const { data } = await axios.post('/api/upload', formData, config);
       console.log(data, 'this is the path of the file');
 
       setImage(data);

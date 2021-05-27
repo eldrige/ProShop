@@ -11,6 +11,9 @@ import {
   ORDER_LIST_MY_REQUEST,
   ORDER_LIST_MY_SUCCESS,
   ORDER_LIST_MY_FAILURE,
+  ORDER_ALL_FAILURE,
+  ORDER_ALL_REQUEST,
+  ORDER_ALL_SUCCESS,
 } from '../constants/orderConstants';
 import axios from 'axios';
 
@@ -150,6 +153,41 @@ export const listMyOrders = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_LIST_MY_FAILURE,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listAllOrders = () => async (dispatch, getState) => {
+  //? we can get our user token, from user info which is found in the getState
+  try {
+    dispatch({
+      type: ORDER_ALL_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/orders/`, config);
+
+    dispatch({
+      type: ORDER_ALL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_ALL_FAILURE,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

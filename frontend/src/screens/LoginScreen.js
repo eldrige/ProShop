@@ -6,7 +6,6 @@ import Message from '../components/Message.js';
 import Loader from '../components/Loader.js';
 import { login } from '../actions/userActions.js';
 import FormContainer from '../components/FormContainer.js';
-import userLogout from '../actions/userActions';
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');

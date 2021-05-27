@@ -56,7 +56,14 @@ const ProductListScreen = ({ match, history }) => {
     } else {
       dispatch(listProducts());
     }
-  }, [dispatch, userInfo, successDelete, successCreate, createdProduct]);
+  }, [
+    dispatch,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdProduct,
+    history,
+  ]);
 
   return (
     <>

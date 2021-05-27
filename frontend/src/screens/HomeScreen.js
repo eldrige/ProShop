@@ -8,7 +8,9 @@ import Message from '../components/Message';
 
 // ! firing off the action, then using the selector to get the state
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword;
+
   const dispatch = useDispatch();
   // *useSelector taks our global state, make sure u use the sm name, defined in your state
   const productList = useSelector((state) => state.productList);
@@ -16,8 +18,8 @@ const HomeScreen = () => {
 
   useEffect(() => {
     // * dispatch calls, our actions
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <>

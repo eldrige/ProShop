@@ -24,6 +24,7 @@ const Header = () => {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            {/* we cannt use SearchBox, with history directly, thats why we wrap it in Route */}
             <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className="ml-auto">
               <LinkContainer to="/cart">

@@ -17,7 +17,11 @@ connectDB();
 const app = express();
 // * allows us to use json data in the body(req.body)
 app.use(express.json());
-app.use(morgan('dev'));
+
+if (process.env.NODE_ENV == 'development') {
+  app.use(morgan('dev'));
+}
+
 app.get('/', (req, res) => {
   res.send('API is running');
 });

@@ -6,6 +6,7 @@ import { listProducts } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
+import Meta from '../components/Meta';
 import ProductCarousel from '../components/ProductCarousel';
 
 // ! firing off the action, then using the selector to get the state
@@ -26,6 +27,7 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      <Meta />
       {!keyword && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (

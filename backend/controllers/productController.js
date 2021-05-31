@@ -145,6 +145,15 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get top rated products
+// @route Get /api/products/top
+// @access public
+const getTopProducts = asyncHandler(async (req, res) => {
+  // sort products by rating in ascending order
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+  res.json(products);
+});
+
 export {
   getProducts,
   getProductById,
@@ -152,6 +161,7 @@ export {
   createProduct,
   createProductReview,
   updateProduct,
+  getTopProducts,
 };
 
 // ! controllers just encapsulate the logic

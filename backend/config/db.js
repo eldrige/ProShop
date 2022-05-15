@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
+const MONGO_URI =
+  'mongodb+srv://eldrige:baguvix75009@cluster0.juzpn.mongodb.net/pharmacySM?retryWrites=true&w=majority';
+
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect(MONGO_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,

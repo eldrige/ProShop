@@ -73,11 +73,11 @@ const ProductListScreen = ({ match, history }) => {
     <>
       <Row className="align-items-center">
         <Col>
-          <h1>Products</h1>
+          <h1>Drugs</h1>
         </Col>
         <Col className="text-right">
           <Button className="my-3" onClick={() => createProductHandler()}>
-            <i className="fas fa-plus mr-3"></i>Create Product
+            <i className="fas fa-plus mr-3"></i>Create Drug
           </Button>
         </Col>
       </Row>
@@ -94,9 +94,9 @@ const ProductListScreen = ({ match, history }) => {
           <Table striped bordered hover responsive>
             <thead>
               <tr>
-                <th>ID</th>
+                {/* <th>ID</th> */}
                 <th>NAME</th>
-                <th>PRICE</th>
+                <th>PRICE (XAF)</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
               </tr>
@@ -104,9 +104,9 @@ const ProductListScreen = ({ match, history }) => {
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
-                  <td>{product._id}</td>
+                  {/* <td>{product._id.substr(1, 4)}</td> */}
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>{product.price.toFixed(0)}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>

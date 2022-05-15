@@ -36,7 +36,7 @@ const UserListScreen = ({ history }) => {
 
   return (
     <>
-      <h1>Users</h1>
+      <h1>Suppliers</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -45,21 +45,22 @@ const UserListScreen = ({ history }) => {
         <Table striped bordered hover responsive>
           <thead>
             <tr>
-              <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
               <th>ADMIN</th>
+              <th>TEL</th>
+              <th>LOCATION</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
-                <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>
                   <a href={`mailto:${user.email}`}>{user.email}</a>{' '}
                 </td>
+
                 <td>
                   {user.isAdmin ? (
                     <i className="fas fa-check" style={{ color: 'green' }}></i>
@@ -67,6 +68,8 @@ const UserListScreen = ({ history }) => {
                     <i className="fas fa-times" style={{ color: 'red' }}></i>
                   )}
                 </td>
+                <td>673-15-96-85</td>
+                <td>Douala</td>
                 <td>
                   <LinkContainer to={`/admin/users/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">

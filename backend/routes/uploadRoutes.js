@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
     callBack(null, 'uploads/');
   },
   filename(req, file, callBack) {
+    console.log(file, 'From storage handler');
     callBack(
       null,
       `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
@@ -22,6 +23,7 @@ const storage = multer.diskStorage({
 
 const checkFileType = (file, callBack) => {
   const supportedFileTypes = /jpg|jpeg|png/;
+
   const extname = supportedFileTypes.test(
     path.extname(file.originalname).toLowerCase()
   );
@@ -39,6 +41,7 @@ const upload = multer({
 });
 
 router.post('/', upload.single('image'), (req, res) => {
+  console.log(req.file);
   res.send(`/${req.file.path}`);
 });
 

@@ -124,8 +124,16 @@ const createProductReview = asyncHandler(async (req, res) => {
 // @route PUT /api/products/:id
 // @access private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-  const { name, price, image, description, category, countInStock, brand } =
-    req.body;
+  const {
+    name,
+    price,
+    image,
+    description,
+    category,
+    countInStock,
+    brand,
+    expiryDate,
+  } = req.body;
 
   const product = await Product.findById(req.params.id);
   if (product) {
@@ -133,6 +141,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.price = price;
     product.image = image;
     product.brand = brand;
+    product.expiryDate = expiryDate;
     (product.description = description),
       (product.category = category),
       (product.countInStock = countInStock);

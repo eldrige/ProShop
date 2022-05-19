@@ -41,7 +41,7 @@ app.get('/api/config/paypal', (req, res) =>
 // in es6 __dirname isnt availble, thats why we mimic it using path
 // const __dirname = path.resolve();
 // we are exposing the uploads folder (backend) to the frontend
-app.use('/uploads', express.static(path.join(__dirname)));
+app.use('/uploads', express.static('uploads'));
 
 app.use(express.static(publicPath));
 

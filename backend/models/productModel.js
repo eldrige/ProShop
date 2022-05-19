@@ -67,6 +67,11 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    expiryDate: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
   },
   {
     timestamps: true, //this is going to create a time field automatically for all ppties

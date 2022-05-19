@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import asyncHandler from 'express-async-handler';
 // * it handles exceptions (express async handler)
 
-const JWT_SECRET = 'abc123';
+const JWT_SECRET = '123abc';
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;

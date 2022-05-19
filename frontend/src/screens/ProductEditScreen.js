@@ -69,6 +69,7 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        expiryDate,
       })
     );
   };

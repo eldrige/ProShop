@@ -69,7 +69,7 @@ const productSchema = mongoose.Schema(
     },
     expiryDate: {
       type: Date,
-      required: true,
+      // required: true,
       default: Date.now(),
     },
   },

@@ -3,6 +3,8 @@ import User from '../models/userModel.js';
 import asyncHandler from 'express-async-handler';
 // * it handles exceptions (express async handler)
 
+const JWT_SECRET = 'abc123';
+
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -18,7 +20,7 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       // ! this will decode the given jwt
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, JWT_SECRET);
       // console.log(decoded);
       // select defines which ppty to exclude or include
       req.user = await User.findById(decoded.id).select('-password');

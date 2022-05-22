@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { parseISO, formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
+import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Row,
@@ -14,6 +16,7 @@ import {
   Form,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
+
 import {
   listProductDetails,
   createProductReview,
@@ -34,6 +37,16 @@ const ProductScreen = ({ history, match }) => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const formatDate = (date) => {
+    // let novelDate = parseISO(date);
+    // let timePeriod = formatDistanceToNow(novelDate);
+    // console.log(timePeriod);
+    const parsedDate = new Date(date);
+    return parsedDate.toDateString();
+
+    // return format(parsedDate, 'MM/dd/yyyy');
+  };
 
   useEffect(() => {
     if (successReview) {
@@ -72,6 +85,7 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          {<Message variant="danger">soon expiring</Message>}
           <Meta title={product.name} />
           <Row>
             <Col md={6}>
@@ -100,7 +114,7 @@ const ProductScreen = ({ history, match }) => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Expiry Date:</Col>
-                      <Col>{product.expiryDate}</Col>
+                      <Col>{formatDate(product?.expiryDate)}</Col>
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
@@ -140,7 +154,7 @@ const ProductScreen = ({ history, match }) => {
                       type="button"
                       disabled={product.countInStock === 0}
                     >
-                      Add To Cart
+                      Purchase
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>

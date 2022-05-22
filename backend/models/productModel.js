@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+const TWENTY_DAYS = 24 * 60 * 60 * 20;
+
 const reviewSchema = mongoose.Schema(
   {
     name: { type: String, required: true },

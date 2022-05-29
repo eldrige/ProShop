@@ -29,6 +29,23 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
+// @desc fetch all products statistics
+// @route GET /api/products/stats
+// @access public
+const getProductStats = asyncHandler(async (req, res) => {
+  // get the total number of products
+  const count = await Product.countDocuments();
+  // this will return products based on the pageSize we pass, that is if pageSize is 2, we will get two products
+  const products = await Product.find();
+
+  const productTotalValue = products
+    .map((product, idx) => product.price * product.countInStock)
+    .reduce((prev, curr) => prev + curr, 0)
+    .toFixed(2);
+
+  res.json({ products, count, productTotalValue });
+});
+
 // @desc fetch one products
 // @route GET /api/products/:id
 // @access public
@@ -171,6 +188,7 @@ export {
   createProductReview,
   updateProduct,
   getTopProducts,
+  getProductStats,
 };
 
 // ! controllers just encapsulate the logic

@@ -18,12 +18,22 @@ import {
 import Rating from '../components/Rating';
 
 import {
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_UPDATE_RESET,
+} from '../constants/productConstants';
+import {
   listProductDetails,
+  updateProduct,
   createProductReview,
 } from '../actions/productActions';
-import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
 
 const ProductScreen = ({ history, match }) => {
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -48,6 +58,26 @@ const ProductScreen = ({ history, match }) => {
     // return format(parsedDate, 'MM/dd/yyyy');
   };
 
+  const handlePurchaseProduct = () => {
+    const newCountInStock = product.countInStock - qty;
+    dispatch(
+      updateProduct({
+        _id: product._id,
+        countInStock: newCountInStock,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        brand: product.brand,
+        description: product.description,
+        category: product.category,
+      })
+    );
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     if (successReview) {
       alert('Review submitted');
@@ -55,7 +85,6 @@ const ProductScreen = ({ history, match }) => {
       setComment('');
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-    console.log(match.params.id);
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match, successReview]);
 
@@ -74,17 +103,25 @@ const ProductScreen = ({ history, match }) => {
     );
   };
 
+  useEffect(() => {
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      history.push('/');
+    }
+  }, [successUpdate]);
+
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
         Go Back
       </Link>
-      {loading ? (
+      {loading || loadingUpdate ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          {successUpdate && <Message>Drug Purchased</Message>}
           {<Message variant="danger">soon expiring</Message>}
           <Meta title={product.name} />
           <Row>
@@ -96,12 +133,7 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item>
+                <ListGroup.Item>Count : {product.countInStock}</ListGroup.Item>
                 <ListGroup.Item>Price : {product.price} XAF</ListGroup.Item>
                 <ListGroup.Item>
                   Description : {product.description}
@@ -149,7 +181,7 @@ const ProductScreen = ({ history, match }) => {
                   )}
                   <ListGroup.Item>
                     <Button
-                      onClick={addToCartHandler}
+                      onClick={handlePurchaseProduct}
                       className="btn-block"
                       type="button"
                       disabled={product.countInStock === 0}

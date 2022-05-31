@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { parseISO, formatDistanceToNow } from 'date-fns';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
@@ -72,6 +73,7 @@ const ProductScreen = ({ history, match }) => {
         category: product.category,
       })
     );
+    toast("You've purchased the drug");
   };
 
   useEffect(() => {

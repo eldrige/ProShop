@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import {
+  Button,
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Card,
+  Table,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import { Link } from 'react-router-dom';
@@ -9,6 +17,11 @@ import { getProductStats } from '../actions/productActions';
 const ReportScreen = ({ match, history }) => {
   const dispatch = useDispatch();
   const productStats = useSelector((state) => state.productStats);
+
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    return parsedDate.toDateString();
+  };
 
   const { loading, error, products, count, productTotalValue } = productStats;
 
@@ -49,23 +62,27 @@ const ReportScreen = ({ match, history }) => {
     );
   };
 
+  const calculatePercentageSold = (initialAmt, countInStock) => {
+    let percentage = (countInStock / initialAmt) * 100;
+    return percentage;
+  };
+
   return (
     <>
       <Row>
-        <Col md={8}>
+        <Col md={10}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Report</h2>
-              <p>
+              {/* <p>
                 <strong>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-                  nam natus neque
+                  
                 </strong>
-              </p>
+              </p> */}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Detailed Report</h2>
-              <ListGroup variant="flush">
+              {/* <ListGroup variant="flush">
                 {!!products &&
                   products.map((product, idx) => (
                     <ListGroup.Item key={idx}>
@@ -88,15 +105,51 @@ const ReportScreen = ({ match, history }) => {
                       </Row>
                     </ListGroup.Item>
                   ))}
-              </ListGroup>
+              </ListGroup> */}
             </ListGroup.Item>
+
+            <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  {/* <th>ID</th> */}
+                  <th>Number</th>
+                  <th>Name</th>
+                  <th>Reference</th>
+                  <th>Price (XAF)</th>
+                  <th>Initial Count</th>
+                  <th>In Stock</th>
+                  <th>Items Sold</th>
+                  <th>Expiry Date</th>
+                  <th>Percentage sold (%)</th>{' '}
+                </tr>
+              </thead>
+              <tbody>
+                {!!products &&
+                  products.map((product, idx) => (
+                    <tr key={product._id}>
+                      {/* <td>{product._id.substr(1, 4)}</td> */}
+                      <td>{idx + 1}</td>
+                      <td>{product.name}</td>
+                      <td>{product._id.split(0, 9)}</td>
+                      <td>{product.price.toFixed(0)}</td>
+                      <td>20</td>
+                      <td>{product.countInStock}</td>
+                      <td>{20 - product.countInStock}</td>
+                      <td>{formatDate(product?.expiryDate)}</td>
+                      <td>
+                        {calculatePercentageSold(20, product?.countInStock)}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
           </ListGroup>
         </Col>
-        <Col md={4}>
+        <Col md={2}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Report Summary</h2>
+                <h2>Summary</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -131,9 +184,7 @@ const ReportScreen = ({ match, history }) => {
                   className="btn-block"
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
-                >
-                  Download Report
-                </Button>
+                ></Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>

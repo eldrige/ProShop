@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Meta from '../components/Meta';
-import { format } from 'date-fns';
+import { format, isAfter } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Row,
@@ -58,6 +58,16 @@ const ProductScreen = ({ history, match }) => {
 
     // return format(parsedDate, 'MM/dd/yyyy');
   };
+
+  const checkIfIsAbtToExpire = (dateToCompare) => {
+    let today = new Date();
+    // 28 => One Month
+    let twoWeeksFromToday = today.setDate(today.getDate() + 28);
+    let result = isAfter(twoWeeksFromToday, dateToCompare);
+    return result;
+  };
+
+  const isAbtToExpire = checkIfIsAbtToExpire(product?.expiryDate);
 
   const handlePurchaseProduct = () => {
     const newCountInStock = product.countInStock - qty;
@@ -124,7 +134,7 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <>
           {successUpdate && <Message>Drug Purchased</Message>}
-          {<Message variant="danger">soon expiring</Message>}
+          {isAbtToExpire && <Message variant="danger">soon expiring</Message>}
           <Meta title={product.name} />
           <Row>
             <Col md={6}>

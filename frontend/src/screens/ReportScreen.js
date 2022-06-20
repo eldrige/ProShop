@@ -62,15 +62,15 @@ const ReportScreen = ({ match, history }) => {
     );
   };
 
-  const calculatePercentageSold = (initialAmt, countInStock) => {
+  const calculatePercentageSold = (countInStock, initialAmt) => {
     let percentage = (countInStock / initialAmt) * 100;
-    return percentage;
+    return 100 - percentage;
   };
 
   return (
     <>
       <Row>
-        <Col md={10}>
+        <Col md={12}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Report</h2>
@@ -82,32 +82,7 @@ const ReportScreen = ({ match, history }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Detailed Report</h2>
-              {/* <ListGroup variant="flush">
-                {!!products &&
-                  products.map((product, idx) => (
-                    <ListGroup.Item key={idx}>
-                      <Row>
-                        <Col md={1}>
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fluid
-                            rounded
-                          />
-                        </Col>
-                        <Col>
-                          <Link to={`/product/${product}`}>{product.name}</Link>
-                        </Col>
-                        <Col md={4}>
-                          {product.countInStock} x {product.price} XAF ={' '}
-                          {product.countInStock * product.price} XAF
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  ))}
-              </ListGroup> */}
             </ListGroup.Item>
-
             <Table striped bordered hover responsive>
               <thead>
                 <tr>
@@ -132,12 +107,12 @@ const ReportScreen = ({ match, history }) => {
                       <td>{product.name}</td>
                       <td>{product._id.split(0, 9)}</td>
                       <td>{product.price.toFixed(0)}</td>
-                      <td>20</td>
+                      <td>10</td>
                       <td>{product.countInStock}</td>
-                      <td>{20 - product.countInStock}</td>
+                      <td>{10 - product.countInStock}</td>
                       <td>{formatDate(product?.expiryDate)}</td>
                       <td>
-                        {calculatePercentageSold(20, product?.countInStock)}
+                        {calculatePercentageSold(product?.countInStock, 10)}
                       </td>
                     </tr>
                   ))}
@@ -145,7 +120,9 @@ const ReportScreen = ({ match, history }) => {
             </Table>
           </ListGroup>
         </Col>
-        <Col md={2}>
+      </Row>
+      <Row>
+        <Col md={4}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
@@ -184,7 +161,9 @@ const ReportScreen = ({ match, history }) => {
                   className="btn-block"
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
-                ></Button>
+                >
+                  Download PDF
+                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>

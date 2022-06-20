@@ -1,3 +1,11 @@
+const today = new Date();
+
+const generateRandomExpiryDate = () => {
+  let randomInt = +(Math.random() * 100).toFixed(0);
+  let randomDate = today.setDate(today.getDate() + randomInt);
+  return randomDate;
+};
+
 const products = [
   {
     name: 'Panadol',
@@ -9,6 +17,7 @@ const products = [
     countInStock: 10,
     rating: 4.5,
     numReviews: 12,
+    expiryDate: generateRandomExpiryDate(),
   },
   {
     name: 'Anti Inflamotory',
@@ -18,9 +27,10 @@ const products = [
     brand: 'Anti Inflamtory',
     category: 'Neutraliser',
     price: 2000,
-    countInStock: 7,
+    countInStock: 10,
     rating: 4.0,
     numReviews: 8,
+    expiryDate: generateRandomExpiryDate(),
   },
   {
     name: 'Bio-Zyme',
@@ -30,9 +40,10 @@ const products = [
     brand: 'Enzymes',
     category: 'Enzymes',
     price: 5000,
-    countInStock: 5,
+    countInStock: 10,
     rating: 3,
     numReviews: 12,
+    expiryDate: generateRandomExpiryDate(),
   },
   {
     name: 'Glucagol',
@@ -42,9 +53,10 @@ const products = [
     brand: 'Glucagol',
     category: 'Antiinflamotory',
     price: 10000,
-    countInStock: 11,
+    countInStock: 10,
     rating: 5,
     numReviews: 12,
+    expiryDate: generateRandomExpiryDate(),
   },
   {
     name: 'Raw calcium',
@@ -53,10 +65,11 @@ const products = [
       'Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience',
     brand: 'Logitech',
     category: 'Electronics',
-    price: 49.99,
-    countInStock: 7,
+    price: 5000,
+    countInStock: 10,
     rating: 3.5,
     numReviews: 10,
+    expiryDate: generateRandomExpiryDate(),
   },
   {
     name: 'Thomapyrin',
@@ -65,10 +78,11 @@ const products = [
       'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
     brand: 'Amazon',
     category: 'Electronics',
-    price: 29.99,
-    countInStock: 0,
+    price: 1000,
+    countInStock: 10,
     rating: 4,
     numReviews: 12,
+    expiryDate: generateRandomExpiryDate(),
   },
 ];
 

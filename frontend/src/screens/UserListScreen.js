@@ -71,15 +71,19 @@ const UserListScreen = ({ history }) => {
                 <td>673-15-96-85</td>
                 <td>Douala</td>
                 <td>
-                  <LinkContainer to={`/admin/users/${user._id}/edit`}>
-                    <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
-                    </Button>
-                  </LinkContainer>
                   <Button
-                    variant="danger"
+                    variant={
+                      'laurellelyvia@gmail.com' === user.email
+                        ? 'danger'
+                        : 'secondary'
+                    }
                     className="btn-sm"
-                    onClick={() => deleteHandler(user._id)}
+                    title={
+                      'laurellelyvia@gmail.com' === user.email
+                        ? 'This supplier has items that are about to expire'
+                        : ''
+                    }
+                    // onClick={() => deleteHandler(user._id)}
                   >
                     <i className="fas fa-trash"></i>
                   </Button>

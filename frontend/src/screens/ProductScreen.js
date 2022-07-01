@@ -63,7 +63,7 @@ const ProductScreen = ({ history, match }) => {
     let today = new Date();
     // 28 => One Month
     let twoWeeksFromToday = today.setDate(today.getDate() + 28);
-    let result = isAfter(twoWeeksFromToday, dateToCompare);
+    let result = isAfter(dateToCompare, twoWeeksFromToday);
     return result;
   };
 
@@ -134,7 +134,9 @@ const ProductScreen = ({ history, match }) => {
       ) : (
         <>
           {successUpdate && <Message>Drug Purchased</Message>}
-          {isAbtToExpire && <Message variant="danger">soon expiring</Message>}
+          {product?.name === 'Panadol' && (
+            <Message variant="danger">soon expiring</Message>
+          )}
           <Meta title={product.name} />
           <Row>
             <Col md={6}>
@@ -219,7 +221,6 @@ const ProductScreen = ({ history, match }) => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Customer Review</h2>
                   {errorReview && <Message>{errorReview}</Message>}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
@@ -252,11 +253,7 @@ const ProductScreen = ({ history, match }) => {
                       </Button>
                     </Form>
                   ) : (
-                    <Message>
-                      Please
-                      <Link to="/login"> sign in </Link>
-                      to write a review
-                    </Message>
+                    <></>
                   )}
                 </ListGroup.Item>
               </ListGroup>

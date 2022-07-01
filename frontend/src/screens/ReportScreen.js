@@ -7,6 +7,7 @@ import {
   Image,
   Card,
   Table,
+  Accordion,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -25,7 +26,9 @@ const ReportScreen = ({ match, history }) => {
 
   const { loading, error, products, count, productTotalValue } = productStats;
 
-  console.log(productStats, 'From report screen');
+  const currentBalance = 245000 - +productTotalValue;
+
+  const profit = (currentBalance / 245000) * 100;
 
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
@@ -74,11 +77,6 @@ const ReportScreen = ({ match, history }) => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Report</h2>
-              {/* <p>
-                <strong>
-                  
-                </strong>
-              </p> */}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Detailed Report</h2>
@@ -86,12 +84,10 @@ const ReportScreen = ({ match, history }) => {
             <Table striped bordered hover responsive>
               <thead>
                 <tr>
-                  {/* <th>ID</th> */}
-                  <th>Number</th>
+                  <th>No</th>
                   <th>Name</th>
                   <th>Reference</th>
                   <th>Price (XAF)</th>
-                  <th>Initial Count</th>
                   <th>In Stock</th>
                   <th>Items Sold</th>
                   <th>Expiry Date</th>
@@ -107,7 +103,6 @@ const ReportScreen = ({ match, history }) => {
                       <td>{product.name}</td>
                       <td>{product._id.split(0, 9)}</td>
                       <td>{product.price.toFixed(0)}</td>
-                      <td>10</td>
                       <td>{product.countInStock}</td>
                       <td>{10 - product.countInStock}</td>
                       <td>{formatDate(product?.expiryDate)}</td>
@@ -121,40 +116,49 @@ const ReportScreen = ({ match, history }) => {
           </ListGroup>
         </Col>
       </Row>
-      <Row>
-        <Col md={4}>
+      <Row className="mt-4">
+        <Col md={6}>
+          <div>
+            <h4>Expected Income</h4>
+            <p>This represents the sum of all the initial stock</p>
+          </div>
+          <div>
+            <h4>Current Income</h4>
+            <p>This represents the sum of all the articles sold</p>
+          </div>
+          <div>
+            <h4>Profit</h4>
+            <p>
+              The profit is a function of the current income versus the expected
+              income
+            </p>
+          </div>
+        </Col>
+        <Col md={6}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Summary</h2>
+                <h2 className="text-center">Summary</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Current Income</Col>
-                  <Col> 75000 XAF</Col>
+                  <Col>{currentBalance} XAF</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Expected Income</Col>
-                  <Col>{productTotalValue}XAF</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Drug count</Col>
-                  <Col>{count}</Col>
+                  <Col>245000 XAF</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Profit</Col>
-                  <Col> 45 %</Col>
+                  <Col> {profit} %</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message>}
-              </ListGroup.Item>
+              <ListGroup.Item></ListGroup.Item>
               <ListGroup.Item>
                 <Button
                   type="button"

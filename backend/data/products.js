@@ -17,7 +17,7 @@ const products = [
     countInStock: 10,
     rating: 4.5,
     numReviews: 12,
-    expiryDate: generateRandomExpiryDate(),
+    expiryDate: today.setDate(today.getDate() + 28),
   },
   {
     name: 'Anti Inflamotory',

@@ -18,6 +18,7 @@ const products = [
     rating: 4.5,
     numReviews: 12,
     expiryDate: today.setDate(today.getDate() + 28),
+    supplier: 'laurellelyvia@gmail.com',
   },
   {
     name: 'Anti Inflamotory',
@@ -31,6 +32,7 @@ const products = [
     rating: 4.0,
     numReviews: 8,
     expiryDate: generateRandomExpiryDate(),
+    supplier: 'laurellelyvia@gmail.com',
   },
   {
     name: 'Bio-Zyme',
@@ -44,6 +46,7 @@ const products = [
     rating: 3,
     numReviews: 12,
     expiryDate: generateRandomExpiryDate(),
+    supplier: 'laurellelyvia@gmail.com',
   },
   {
     name: 'Glucagol',
@@ -57,6 +60,7 @@ const products = [
     rating: 5,
     numReviews: 12,
     expiryDate: generateRandomExpiryDate(),
+    supplier: 'janedoe@outlook.com',
   },
   {
     name: 'Raw calcium',
@@ -70,6 +74,7 @@ const products = [
     rating: 3.5,
     numReviews: 10,
     expiryDate: generateRandomExpiryDate(),
+    supplier: 'janedoe@outlook.com',
   },
   {
     name: 'Thomapyrin',
@@ -83,6 +88,7 @@ const products = [
     rating: 4,
     numReviews: 12,
     expiryDate: generateRandomExpiryDate(),
+    supplier: 'ronaldnguemo@yahoo.fr',
   },
 ];
 

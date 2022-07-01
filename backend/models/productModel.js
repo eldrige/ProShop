@@ -54,6 +54,9 @@ const productSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    supplier: {
+      type: String,
+    },
     numReviews: {
       type: Number,
       required: true,

@@ -25,6 +25,13 @@ const UserListScreen = ({ history }) => {
     }
   };
 
+  const fakeNumbers = [
+    '673-15-96-85',
+    '698-98-37-40',
+    '622-90-32-11',
+    '623-11-22-75',
+  ];
+
   useEffect(() => {
     // dispatch list all users, only if user is loggedin and is admin
     if (userInfo && userInfo.isAdmin) {
@@ -47,46 +54,29 @@ const UserListScreen = ({ history }) => {
             <tr>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>ADMIN</th>
               <th>TEL</th>
               <th>LOCATION</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map((user, idx) => (
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>
                   <a href={`mailto:${user.email}`}>{user.email}</a>{' '}
                 </td>
-
-                <td>
-                  {user.isAdmin ? (
-                    <i className="fas fa-check" style={{ color: 'green' }}></i>
-                  ) : (
-                    <i className="fas fa-times" style={{ color: 'red' }}></i>
-                  )}
-                </td>
-                <td>673-15-96-85</td>
+                <td>{fakeNumbers[idx]}</td>
                 <td>Douala</td>
                 <td>
-                  <Button
-                    variant={
-                      'laurellelyvia@gmail.com' === user.email
-                        ? 'danger'
-                        : 'secondary'
-                    }
-                    className="btn-sm"
-                    title={
-                      'laurellelyvia@gmail.com' === user.email
-                        ? 'This supplier has items that are about to expire'
-                        : ''
-                    }
-                    // onClick={() => deleteHandler(user._id)}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </Button>
+                  {'laurellelyvia@gmail.com' === user.email ? (
+                    <i className="fas fa-times" style={{ color: 'red' }}></i>
+                  ) : (
+                    <i
+                      className="fas fa-check cursor-pointer"
+                      style={{ color: 'green' }}
+                    ></i>
+                  )}
                 </td>
               </tr>
             ))}
